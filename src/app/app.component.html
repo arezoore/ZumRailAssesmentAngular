@@ -1,0 +1,68 @@
+<div class="container">
+  <div class="my-3">
+    <form [formGroup]="searchPostsForm" class="row">
+      <div class="col-md-3">
+        <label for="tags">Tags </label>
+        <input id="tags" type="text" formControlName="tags" class="form-control">
+        <span class="text-danger"
+          *ngIf="searchPostsForm.get('tags')?.errors?.['required'] && (searchPostsForm.get('tags')?.touched)">Tag
+          parameters is required</span>
+      </div>
+
+      <div class="col-md-3">
+        <label for="sortBy">Sort By </label>
+        <select id="sortBy" formControlName="sortBy" class="form-control">
+          <option value="id">id</option>
+          <option value="reads">reads</option>
+          <option value="likes">likes</option>
+          <option value="popularity">popularity</option>
+        </select>
+      </div>
+
+      <div class="col-md-3">
+        <label for="direction">Direction</label>
+        <select id="direction" formControlName="direction" class="form-control">
+          <option value="desc">Descending</option>
+          <option value="asc">Ascending</option>
+        </select>
+      </div>
+
+      <div class="col-md-3">
+        <button class="btn btn-primary mt-4" type="submit" (click)="search()">Search</button>
+      </div>
+
+    </form>
+  </div>
+
+
+  <div *ngIf="posts.length > 0">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Author</th>
+          <th>Author Id</th>
+          <th>Id</th>
+          <th>Likes</th>
+          <th>Popularity</th>
+          <th>Reads</th>
+          <th>Tags</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let post of posts">
+          <td>{{post.author}}</td>
+          <td>{{post.authorId}}</td>
+          <td>{{post.id}}</td>
+          <td>{{post.likes}}</td>
+          <td>{{post.popularity}}</td>
+          <td>{{post.reads}}</td>
+          <td>{{post.tags}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="posts.length == 0" class="fw-bold">
+    No Posts Founded
+  </div>
+</div>
